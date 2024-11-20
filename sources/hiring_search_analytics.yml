@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: datamodel
+    tables:
+      - name: customers_order_data
+        partition_column: partition_date
+      - name: behavioural_customer_data
+        partition_column: partition_date
+      - name: backend_logging_data
+        partition_column: partition_date
+
+data_quality:
+  row_count_threshold: 1000
+  null_check_columns:
+    - experiment_id
+    - user_id

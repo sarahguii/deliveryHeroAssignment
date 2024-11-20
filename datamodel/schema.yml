@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: datamodel__conversion_rate
+    description: Part 2 Data Querying and Performance Optimization Query 1
+
+  - name: datamodel__fact_participants
+    description: Part 2 Data Querying and Performance Optimization Query 2
+    columns: 
+      - name: experiment_variant_user_id
+        description: Primary key for fact participants table at an experiment variant user daily granularity
+        tests: 
+          - not_null
+      - name: experiment_variant_id
+        description: Foreign key to join to fact experiments table
+      - name: experiment_id
+        description: experiment level identifier
+      - name: user_id
+        description: user level identifier
+      - name: assignment_date
+        description: date the user was assigned to a specific experiment
+      - name: is_control_group
+        description: Returns true or false values 
+      - name: num_sessions
+        description: Total number of sessions per experiment variant user daily granularity
+      - name: num_orders
+        description: Total number of orders per experiment variant user daily granularity
+      - name: num_atc
+        description: Total number of add to cart per experiment variant user daily granularity
+      - name: num_pdp_viewed
+        description: Total number of product details page viewed per experiment variant user daily granularity
+
+  - name: datamodel__order_value
+    description: Part 2 Data Querying and Performance Optimization Query 3

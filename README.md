@@ -10,10 +10,10 @@ Bonus Task: Build an end-to-end workflow (Data pipeline) that enables analytics 
   Extract raw data from sources (e.g., API, storage, or database).
   Load raw data from source tables into BigQuery
   Transform by generating fact and dimension tables using the queries from the data model eg: fact_participants.sql
-  Schedule periodic execution using Airflow (daily)
+  Schedule periodic execution using Airflow (daily) eg. airflow/dags/dbt_jobs.py
 
 2. Data Quality Checks: Implement data quality checks and trigger alerts for issues with dbt great expectations
-  Use YAML files to define configurations for data quality thresholds and checks.
+  Use YAML files to define configurations for data quality thresholds and checks. eg. schema.yml, datamodel.yml
     Check for missing keys, duplicates, or unexpected null values.
     Compare data row counts between source and target tables.
     Ensure partitions are loaded as expected.

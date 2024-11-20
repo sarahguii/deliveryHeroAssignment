@@ -3,6 +3,7 @@
         alias='fact_participants',
         materialized='table',
         unique_key='experiment_variant_user_id',
+        tags=['data_model'],
         partition_by={
         "field": "assignment_date",  
         "data_type": "date"

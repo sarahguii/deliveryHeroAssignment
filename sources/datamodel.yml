@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: datamodel
+    tables:
+      - name: conversion_rate
+      - name: fact_participants
+        freshness:
+          warn_after: {count: 120, period: minute}
+          error_after: {count: 150, period: minute}
+        loaded_at_field: updated_at
+        tests:
+          - check_table_last_updated:
+              config:
+                severity: warn
+              time_frame: 300
+      - name: order_value
