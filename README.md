@@ -23,3 +23,8 @@ Bonus Task: Build an end-to-end workflow (Data pipeline) that enables analytics 
   Maintain immutable snapshots by appending new data rather than overwriting.
   Store final data in BigQuery with historical partitions.
   Provide access for analytics and dashboards
+
+Performance Optimization Considerations:
+- Materialise data_model queries as tables to be queried repeatedly and update them periodically (e.g., daily, hourly) based on business requirements.
+- Use partitioning and clustering for data_model tables to reduce the amount of data scanned for each query.
+- Materialise views on top of data_model tables to cache the results of queries that involve repetitive aggregations or transformations such as the conversion_rate and order_value queries.
