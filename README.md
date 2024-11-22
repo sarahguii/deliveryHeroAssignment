@@ -23,7 +23,7 @@ Bonus Task: Build an end-to-end workflow (Data pipeline) that enables analytics 
 
 3. Storage and Analytics Layer: Maintain tables with date partitions or date sharded logic.
 
-  Maintain immutable snapshots by appending new data rather than overwriting.
+  Maintain immutable snapshots with incremental logic
   Store final data in BigQuery with historical partitions.
   Provide access for analytics and dashboards
 
