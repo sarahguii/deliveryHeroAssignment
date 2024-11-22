@@ -9,5 +9,4 @@ sources:
           - dbt_expectations.expect_row_values_to_have_recent_data:
               datepart: day
               interval: 1
-              row_condition: 'id is not null' #optional
       - name: order_value
