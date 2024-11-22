@@ -1,5 +1,6 @@
 # deliveryHeroAssignment
 Delivery Hero Case Study
+Google Slides Link: https://docs.google.com/presentation/d/1eEX18vkwWa-lJRCfvU_sHYeKNgV8Kxw8HOfbtIyQhic/edit?usp=sharing
 
 Part 1: Dimensional Data Model Design
 https://dbdiagram.io/d/DeliveryHero-Case-Study-673b3f63e9daa85acad57945
