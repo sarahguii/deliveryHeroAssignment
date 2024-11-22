@@ -10,7 +10,7 @@ DATE_DASH = "{{ ds }}"
  
 JOBS = [
     {
-        "name": "data_model",
+        "model": "data_model",
         "schedule": "10 0 * * *",
         "tags": "tag:data_model",
         "cmd_vars": f"{{date_nodash: {DATE_NODASH}}}",
