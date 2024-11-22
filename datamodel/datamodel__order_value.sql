@@ -8,7 +8,7 @@ SELECT
     fe.session_id,
     u.region,
     u.device,
-    SUM(o.order_value_eur - o.discount_value_eur - o.voucher_value_eur) AS net_order_value
+    SUM(o.order_value_eur + o.discount_value_eur + o.voucher_value_eur) AS order_value_wo_voucher_discount
 FROM
     {{ ref('data__fact_experiments') }} AS fe
 LEFT JOIN
