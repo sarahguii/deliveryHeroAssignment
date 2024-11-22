@@ -2,19 +2,26 @@
     alias='conversion_rate',
     materialized='view'
 ) }}
-  
-SELECT
-    fp.experiment_variant_id,
+
+WITH participant_level AS (
+SELECT 
+    experiment_variant_id,
     u.country,
     u.device,
-    -- SUM(fp.num_orders) AS total_orders,
-    -- COUNT(DISTINCT fp.user_id) AS total_participants,
-    ROUND(
-        (SUM(fp.num_orders) / NULLIF(COUNT(DISTINCT fp.user_id), 0)) * 100,
-        2
-    ) AS conversion_rate
-FROM
+    COUNT(DISTINCT IF(fp.num_orders >= 1, fp.user_id, NULL)) AS total_users_who_ordered,
+    COUNT(DISTINCT fp.user_id) AS total_users,
+FROM 
     {{ ref('data__fact_participants') }} AS fp
 LEFT JOIN
     {{ ref('data__dim_users') }} AS u ON fp.user_id = u.user_id
+GROUP BY 1, 2, 3
+)
+    
+SELECT
+    experiment_variant_id,
+    country,
+    device,
+    ROUND(SAFE_DIVIDE(total_users_who_ordered, total_users) * 100, 2) AS conversion_rate
+FROM
+    participant_level fp
 GROUP BY 1, 2, 3
