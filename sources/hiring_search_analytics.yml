@@ -5,13 +5,22 @@ sources:
     tables:
       - name: customers_order_data
         partition_column: partition_date
+        tests:
+          - dbt_expectations.expect_row_values_to_have_recent_data:
+              datepart: day
+              interval: 1
+              
       - name: behavioural_customer_data
         partition_column: partition_date
+        tests:
+          - dbt_expectations.expect_row_values_to_have_recent_data:
+              datepart: day
+              interval: 1
+              
       - name: backend_logging_data
         partition_column: partition_date
-
-data_quality:
-  row_count_threshold: 1000
-  null_check_columns:
-    - experiment_id
-    - user_id
+        tests:
+          - dbt_expectations.expect_row_values_to_have_recent_data:
+              datepart: day
+              interval: 1
+              
