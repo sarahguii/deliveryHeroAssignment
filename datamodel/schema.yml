@@ -9,14 +9,24 @@ models:
     columns: 
       - name: experiment_variant_user_id
         description: Primary key for fact participants table at an experiment variant user daily granularity
-        tests: 
-          - not_null
+        tests:
+          - dbt_expectations.expect_column_values_to_not_be_null:
+              row_condition: "id is not null" # (Optional)
       - name: experiment_variant_id
         description: Foreign key to join to fact experiments table
+        tests:
+          - dbt_expectations.expect_column_values_to_not_be_null:
+              row_condition: "id is not null" # (Optional)
       - name: experiment_id
         description: experiment level identifier
+        tests:
+          - dbt_expectations.expect_column_values_to_not_be_null:
+              row_condition: "id is not null" # (Optional)
       - name: user_id
         description: user level identifier
+        tests:
+          - dbt_expectations.expect_column_values_to_not_be_null:
+              row_condition: "id is not null" # (Optional)
       - name: assignment_date
         description: date the user was assigned to a specific experiment
       - name: is_control_group
