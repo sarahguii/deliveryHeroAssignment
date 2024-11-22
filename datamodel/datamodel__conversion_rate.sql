@@ -24,4 +24,3 @@ SELECT
     ROUND(SAFE_DIVIDE(total_users_who_ordered, total_users) * 100, 2) AS conversion_rate
 FROM
     participant_level fp
-GROUP BY 1, 2, 3
