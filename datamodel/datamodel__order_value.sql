@@ -7,7 +7,7 @@ SELECT
     fe.experiment_variant_id,
     fe.session_id,
     u.region,
-    u.device_type,
+    u.device,
     SUM(o.order_value_eur - o.discount_value_eur - o.voucher_value_eur) AS net_order_value
 FROM
     {{ ref('data__fact_experiments') }} AS fe
