@@ -20,10 +20,11 @@ WITH sessions_participated AS (
       -- take only sessions where experiment participated
       session_id,
       -- Experiment-related data
-      be.response.experiments.key AS experiment_id,
-      be.response.experiments.variation AS variant_id,
+      fun.key AS experiment_id,
+      fun.variation AS variant_id,
     FROM {{ ref('hiring_search_analytics__behavioural_customer_data') }} st
-    JOIN {{ ref('hiring_search_analytics__backend_logging_data') }} AS be ON st.session_id = be.perseus_session_id
+    JOIN {{ ref('hiring_search_analytics__backend_logging_data') }} AS be ON st.session_id = be.perseus_session_id, 
+        UNNEST(be.fun_with_flags_client.response.experiments) AS fun
     WHERE st.event_name = 'experiment.participated'
 ),
     
@@ -39,7 +40,7 @@ session_data AS (
     -- Metadata for segmentation and tracking
     DATE(be.partition_date) AS assignment_date,
     -- Derived fields
-    IF(be.response.experiments.variation = 'control', TRUE, FALSE) AS is_control_group,
+    IF(LOWER(sp.variant_id) = 'control', TRUE, FALSE) AS is_control_group,
     SUM(IF(st.event_name = 'add_cart.click', 1, 0)) AS add_to_cart,
     SUM(IF(st.event_name = 'pdp_impression', 1, 0)) AS pdp_viewed
   FROM
@@ -50,7 +51,7 @@ session_data AS (
 
 SELECT 
     CONCAT(experiment_id, variant_id, user_id) AS experiment_variant_user_id,
-    experiment_variant_id,
+    CONCAT(experiment_id, variant_id) AS experiment_variant_id,
     experiment_id,
     user_id,
     assignment_date,
