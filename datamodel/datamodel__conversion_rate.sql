@@ -6,7 +6,7 @@
 SELECT
     fp.experiment_variant_id,
     u.country,
-    u.device_type,
+    u.device,
     -- SUM(fp.num_orders) AS total_orders,
     -- COUNT(DISTINCT fp.user_id) AS total_participants,
     ROUND(
