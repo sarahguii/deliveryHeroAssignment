@@ -21,7 +21,7 @@ Bonus Task: Build an end-to-end workflow (Data pipeline) that enables analytics 
     Ensure partitions are loaded as expected.
     Trigger alerts (e.g., via Slack or email) for anomalies.
 
-3. Storage and Analytics Layer: Maintain historical views of tables with date partitions or date sharded logic.
+3. Storage and Analytics Layer: Maintain tables with date partitions or date sharded logic.
 
   Maintain immutable snapshots by appending new data rather than overwriting.
   Store final data in BigQuery with historical partitions.
