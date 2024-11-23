@@ -22,10 +22,9 @@ WITH sessions_participated AS (
       -- Experiment-related data
       fun.key AS experiment_id,
       fun.variation AS variant_id,
-    FROM 
-        {{ source('hiring_search_analytics', 'behavioural_customer_data') }}  st
-    JOIN 
-        {{ source('hiring_search_analytics', 'backend_logging_data') }} AS be ON st.session_id = be.perseus_session_id, UNNEST(be.fun_with_flags_client.response.experiments) AS fun
+    FROM {{ source('hiring_search_analytics', 'behavioural_customer_data') }}  st
+    JOIN {{ source('hiring_search_analytics', 'backend_logging_data') }} AS be ON st.session_id = be.perseus_session_id, 
+        UNNEST(be.fun_with_flags_client.response.experiments) AS fun
     WHERE 
         st.event_name = 'experiment.participated'
 ),
@@ -45,8 +44,7 @@ session_data AS (
     IF(LOWER(sp.variant_id) = 'control', TRUE, FALSE) AS is_control_group,
     SUM(IF(st.event_name = 'add_cart.click', 1, 0)) AS add_to_cart,
     SUM(IF(st.event_name = 'pdp_impression', 1, 0)) AS pdp_viewed
-  FROM
-    {{ source('hiring_search_analytics', 'behavioural_customer_data') }} AS st
+  FROM {{ source('hiring_search_analytics', 'behavioural_customer_data') }} AS st
   JOIN sessions_participated sp ON sp.session_id = st.session_id
   GROUP BY 1, 2, 3, 4, 5, 6, 7
 )
